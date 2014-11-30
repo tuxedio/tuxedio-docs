@@ -1,13 +1,11 @@
 ---
-title: API Reference
+title: Tuxedio API Reference
 
 language_tabs:
   - shell
-  - ruby
-  - python
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
+  - <a href='http://www.tuxedio.com/sign_up'>Sign Up for a Developer Key</a>
   - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
@@ -25,41 +23,69 @@ Our primary goal is to make this documentation *as helpful as possible*, so if
 there are any hiccups in your experience please get in touch so we can fix the
 problems while you get back to making innovative apps.
 
-# Authentication
+# Signing up `POST /v1/users(.:format)`
 
-> To authorize, use this code:
+When you sign up, you create a user account with a handle (username), email,
+and password. This will be used as your means for authentication for creating,
+updating, and deleting resources.
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
+> Submit your login:
 
 ```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+curl "http://api.tuxedo.com/v1/login.json" \
+  -H "Content-Type: application/json" \
+  -d '{"user":{"email":"me@example.com","password":"foobar123"}}'
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
+
+# Logging in `POST /v1/login(.:format)`
+
+When you log in, you obtain a [JWT token](http://jwt.io/) by posting your email
+and password. This token is used to authethenticate you for requests. By default,
+it expires after 24 hours.
+
+> To log in, use this code:
+
+```shell
+curl "http://api.tuxedo.com/v1/login.json" \
+  -H "Content-Type: application/json" \
+  -d '{"user":{"email":"me@example.com","password":"foobar123"}}'
+```
+
+<aside class="success">
+Upon successful login, you will receive a token in the response which you can
+use in subsequent requests.
+</aside>
+
+# Authentication
+
+> To authorize, just pass in the JWT Token in the header of your request.
+
+```shell
+curl "http://api.tuxedo.com/v1/experiences" \
+  -H "Authentication: Bearer MY_JWT_TOKEN"
+```
 
 Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
 
-`Authorization: meowmeowmeow`
+`Authentication: Bearer MY_JWT_TOKEN`
 
 <aside class="notice">
-You must replace `meowmeowmeow` with your personal API key.
+You must replace `MY_JWT_TOKEN` with the personal JWT token that you recieved.
 </aside>
 
-# Kittens
+# Experiences `GET /v1/experiences(.:format)`
+
+```shell
+curl "http://api.tuxedo.com/v1/experiences" \
+  -H "Authentication: Bearer MY_JWT_TOKEN"
+```
+
+Parameter | Default | Description
+--------- | ------- | -----------
+upcoming  | true    | If set to true, only upcoming experiences show up
+
 
 ## Get All Kittens
 
