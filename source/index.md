@@ -18,11 +18,12 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Come one, come all! Welcome to the Tuxedio API. This documentation will help
+you learn to use our API to facilitate user-driven experiences.
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](http://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
+Our primary goal is to make this documentation *as helpful as possible*, so if
+there are any hiccups in your experience please get in touch so we can fix the
+problems while you get back to making innovative apps.
 
 # Authentication
 
@@ -61,20 +62,6 @@ You must replace `meowmeowmeow` with your personal API key.
 # Kittens
 
 ## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
 
 ```shell
 curl "http://example.com/api/kittens"
